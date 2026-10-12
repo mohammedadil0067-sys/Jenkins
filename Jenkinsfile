@@ -1,27 +1,20 @@
+cat << 'EOF' > Jenkinsfile
 pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building the website...'
-                // Example: npm install && npm run build
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                // Example: npm test
+                echo 'Checking out code from Git...'
             }
         }
 
-        stage('Deploy to Web Server') {
+        stage('Deploy to S3') {
             steps {
-                echo 'Deploying to website directory...'
-                // Example for copying files to an Apache/Nginx web root on your server:
-                // sh 'scp -r dist/* user@your-server-ip:/var/www/html/'
+                echo 'Uploading files to AWS S3...'
+                sh 'aws s3 sync . s3://jens3kins --exclude ".git/*" --exclude "Jenkinsfile"'
             }
         }
     }
 }
+EOF
