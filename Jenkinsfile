@@ -4,22 +4,23 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                // Add your build commands here (e.g., npm install,mvn clean package)
+                echo 'Building the website...'
+                // Example: npm install && npm run build
             }
         }
         
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                // Add your test commands here (e.g., npm test)
+                // Example: npm test
             }
         }
-        
-        stage('Deploy') {
+
+        stage('Deploy to Web Server') {
             steps {
-                echo 'Deploying application to production...'
-                // Add your deployment commands here
+                echo 'Deploying to website directory...'
+                // Example for copying files to an Apache/Nginx web root on your server:
+                // sh 'scp -r dist/* user@your-server-ip:/var/www/html/'
             }
         }
     }
